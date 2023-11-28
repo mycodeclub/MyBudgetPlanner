@@ -11,7 +11,7 @@ namespace MyBudgetPlanner.DataBase
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //  modelBuilder.SeedRoles();
+            modelBuilder.SeedRoles();
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasKey(p => new { p.UserId, p.RoleId });
             modelBuilder.Entity<AppUser>().ToTable("ApplicationUser");
@@ -25,8 +25,9 @@ namespace MyBudgetPlanner.DataBase
         }
 
 
-        public DbSet<ExpenseTag> ExpenseTags { get; set; }
-        public DbSet<Expense> Expenses { get; set; }
         public DbSet<Income> Incomes { get; set; }
+        public DbSet<ExpenseTag> ExpenseTags { get; set; }
+        public DbSet<MyExpensePlan> MyExpensePlans { get; set; }
+        public DbSet<MyExpense> MyExpenses { get; set; }
     }
 }

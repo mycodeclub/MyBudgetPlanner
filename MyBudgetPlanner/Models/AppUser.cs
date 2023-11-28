@@ -8,10 +8,6 @@ namespace MyBudgetPlanner.Models
 
     public class AppUser : IdentityUser
     {
-
-        [Required]
-        [DisplayName("Organization Name")]
-        public string OrganizationName { get; set; } = string.Empty;
         [NotMapped]
         public string Password { get; set; } = string.Empty;
         [NotMapped]

@@ -1,0 +1,112 @@
+﻿@inject SignInManager<AppUser> signInManager;
+@model AppUser
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;// "~/Views/Shared/_LandingPageLayout.cshtml";
+    ViewBag.ActiveTabId = 4;
+}
+@section Scripts {
+    <script src="~/AppJs/Address.js"></script>
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from uxliner.com/adminkit/demo/material/ltr/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 May 2020 19:09:50 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Niche Admin - Powerful Bootstrap 4 Dashboard and Admin Template</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- v4.0.0-alpha.6 -->
+    <link rel="stylesheet" href="~/uitemplate/admintemp/dist/bootstrap/css/bootstrap.min.css">
+    <link href="~/uitemplate/admintemp/dist/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/uitemplate/admintemp/dist/css/style.css">
+    <link rel="stylesheet" href="~/uitemplate/admintemp/dist/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/uitemplate/admintemp/dist/css/et-line-font/et-line-font.css">
+    <link rel="stylesheet" href="~/uitemplate/admintemp/dist/css/themify-icons/themify-icons.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box"> </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center bg-dark text-white text-bold">Register As Event Manager Organization</div>
+            <div class="card-body">
+                <form class="form-horizontal" asp-action="RegisterNewUser" asp-controller="Account" method="post">
+                    <div class="row form-group">
+                        <label class="control-label col-sm-2" asp-for="PhoneNumber"></label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="PhoneNumber" placeholder="Primary Contact Number" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-2" asp-for="Email"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="Email" class="form-control" placeholder="Registration mail Id (used for login)" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-2" asp-for="Password"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Enter password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-2" asp-for="ConfirmPassword"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Re Enter password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-2"> </div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">SignUp </button>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer text-right bg-secondary text-white "> Already have an account?  &nbsp;  &nbsp;  &nbsp; <a asp-controller="Account" class="btn btn-danger" asp-action="Login">Login </a>  </div>
+        </div>
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <section>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="~/uitemplate/admintemp/dist/js/jquery.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/js/niche.html"></script>
+</body>
+
+</html>
+
+
+
+
+
+

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyBudgetPlanner.Models
 {
-    public class Expense
+    public class MyExpense
     {
         [Key]
         public Guid UniqueId { get; set; }
@@ -13,9 +13,13 @@ namespace MyBudgetPlanner.Models
         public byte Month { get; set; } = 0;
         public int Year { get; set; } = 0;
 
-        public Guid? UserId { get; set; }
+        public bool IsMandatory { get; set; } = false;
+
+        public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser? User { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastUpdatedDate { get; set; }
     }
 }

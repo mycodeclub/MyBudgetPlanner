@@ -1,0 +1,134 @@
+﻿@inject SignInManager<AppUser> signInManager;
+@{
+    string activeTab = string.Empty;
+    string activeTabName = "something...";
+    if (!string.IsNullOrEmpty(ViewBag.activeTabName))
+    {
+        activeTabName = ViewBag.activeTabName;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BPST Software Solution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/bootstrap/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/UiTemplate/AdminTemp/dist/img/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/style.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/et-line-font/et-line-font.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/simple-lineicon/simple-line-icons.css" />
+    <script src="https://kit.fontawesome.com/a92c00a13e.js" crossorigin="anonymous"></script>
+    @RenderSection("Style", required: false)
+</head>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper boxed-wrapper">
+        <header class="main-header">
+            <a href="/AssessmentBody/Home/Index" class="logo blue-bg">
+                <span class="logo-mini"><img src="~/UiTemplate/AdminTemp/dist/img/logo-n.png" alt=""></span>
+            </a>
+            <nav class="navbar blue-bg navbar-static-top">
+                <ul class="nav navbar-nav pull-left">
+                    <li><a class="sidebar-toggle" data-toggle="push-menu" href=""></a> </li>
+                </ul>
+                <div class="pull-left search-box">
+                    <form action="#" method="get" class="search-form">
+                        <div class="input-group">
+                            <input name="search" class="form-control" placeholder="" type="text">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="dropdown user user-menu p-ph-res">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/UiTemplate/AdminTemp/dist/img/img1.jpg" class="user-image" alt="User Image"> <span class="hidden-xs">@User.Identity.Name</span> </a>
+                                <ul class="dropdown-menu">
+                                    <li class="user-header">
+                                        <div class="pull-left user-img"><img src="~/UiTemplate/AdminTemp/dist/img/img1.jpg" class="img-responsive img-circle" alt="User"></div>
+                                        <p class="text-left">  <small> @User.Identity.Name</small> </p>
+                                    </li>
+                                    <li><a href="/Account/LogOut"><i class="fa fa-power-off"></i> LogOut</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+
+            <div class="sidebar">
+                <div class="user-panel">
+                    <div class="image text-center"><img src="~/UiTemplate/AdminTemp/dist/img/img1.jpg" class="img-circle" alt="User Image"> </div>
+                    <div class="info">
+                        <p>@User.Identity.Name</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <ul class="sidebar-menu" data-widget="tree">
+                    @if (activeTabName.Equals("EventOrganizer")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/Admin/EventOrganizers/Index">  </a></li>
+
+                    <li class="treeview">
+                        <a href="#"> <i class="icon-ru"></i> <span>Income Sources</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                        <ul class="treeview-menu">
+                            <li> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Fixed </a> </li>
+                            <li class="active"> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Alternate </a> </li>
+                        </ul>
+                    <li />
+
+
+                    <li class="treeview active">
+                        <a href="#"> <i class="icon-ru"></i> <span>Expenses</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                        <ul class="treeview-menu">
+                            <li> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Planning </a> </li>
+                            <li class="active"> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Exact  </a> </li>
+                        </ul>
+                    <li />
+                            @if (activeTabName.Equals("Register")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/Admin/Scanner/Index"> Scanner </a></li>
+                            @*
+                    @if (activeTabName.Equals("Employees")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/Admin/Employees/Index"> Employees</a></li>
+                    *@
+
+
+                    <li><a href="/Account/LogOut"><i class="fa fa-power-off"></i> LogOut</a></li>
+                </ul>
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer text-center">
+            Copyright © @System.DateTime.Now.Year <a href="http://bitprosoftec.com/" target="_blank">BitProSofTec.</a>  All rights reserved.
+        </footer>
+    </div>
+    <script src="~/UiTemplate/AdminTemp/dist/js/jquery.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/js/adminkit.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/raphael/raphael-min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/morris/morris.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/dashboard1.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/peity/jquery.peity.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/jquery.peity.init.js"></script>
+    <script src="~/js/Helper.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/AppJS/amt.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+

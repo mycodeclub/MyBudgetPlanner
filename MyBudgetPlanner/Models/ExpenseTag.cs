@@ -10,8 +10,8 @@ namespace MyBudgetPlanner.Models
         public string TagName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int ParentId { get; set; }
-        public Guid? UserId { get; set; }
 
+        public string? UserId { get; set; } 
         [ForeignKey("UserId")]
         public AppUser? User { get; set; }
 
