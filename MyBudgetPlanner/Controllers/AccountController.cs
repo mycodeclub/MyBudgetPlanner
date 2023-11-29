@@ -80,7 +80,7 @@ namespace MyBudgetPlanner.Controllers
                     var role = await _userManager.GetRolesAsync(user);
                     return role.Contains("SuperAdmin")
                         ? RedirectToAction("Index", "Home", new { Area = "SuperAdmin" })
-                        : RedirectToAction("Index", "Planner");
+                        : RedirectToAction("Index", "MyExpensePlans");
                 }
                 else { ModelState.AddModelError("", "Invalid Email Id or Password"); }
             }

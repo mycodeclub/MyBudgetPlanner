@@ -23,7 +23,7 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyExpensePlans
         public async Task<IActionResult> Index()
         {
-            string? LoggedInUserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; 
+            string? LoggedInUserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(LoggedInUserId))
                 return NotFound();
             var appDbContext = _context.MyExpensePlans.Where(p => p.UserId.Equals(LoggedInUserId));
@@ -38,9 +38,7 @@ namespace MyBudgetPlanner.Controllers
                 return NotFound();
             }
 
-            var myExpensePlan = await _context.MyExpensePlans
-                .Include(m => m.User)
-                .FirstOrDefaultAsync(m => m.UniqueId == id);
+            var myExpensePlan = await _context.MyExpensePlans.FirstOrDefaultAsync(m => m.UniqueId == id);
             if (myExpensePlan == null)
             {
                 return NotFound();
@@ -49,11 +47,26 @@ namespace MyBudgetPlanner.Controllers
             return View(myExpensePlan);
         }
 
+
+
         // GET: MyExpensePlans/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid? id)
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            MyExpensePlan plan;
+            if (id == null)
+            {
+                plan = new MyExpensePlan()
+                {
+                    IsMandatory = true,
+                    CreatedDate = DateTime.UtcNow
+                };
+            }
+            else
+            {
+                string? LoggedInUserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                plan = await _context.MyExpensePlans.Where(p => p.UniqueId.Equals(id) && p.UserId.Equals(LoggedInUserId)).FirstOrDefaultAsync();
+            }
+            return View(plan);
         }
 
         // POST: MyExpensePlans/Create
@@ -61,69 +74,24 @@ namespace MyBudgetPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UniqueId,UserId,ExpenseTags,Discription,Amount,IsMandatory,CreatedDate,LastUpdatedDate")] MyExpensePlan myExpensePlan)
+        public async Task<IActionResult> Create(MyExpensePlan myExpensePlan)
         {
             if (ModelState.IsValid)
             {
-                myExpensePlan.UniqueId = Guid.NewGuid();
-                _context.Add(myExpensePlan);
+                if (myExpensePlan.UniqueId.Equals(Guid.Empty))
+                {
+                    myExpensePlan.UniqueId = Guid.NewGuid();
+                    myExpensePlan.CreatedDate = DateTime.UtcNow;
+                    _context.Add(myExpensePlan);
+                }
+                else
+                {
+                    myExpensePlan.LastUpdatedDate = DateTime.UtcNow;
+                    _context.Update(myExpensePlan);
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myExpensePlan.UserId);
-            return View(myExpensePlan);
-        }
-
-        // GET: MyExpensePlans/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.MyExpensePlans == null)
-            {
-                return NotFound();
-            }
-
-            var myExpensePlan = await _context.MyExpensePlans.FindAsync(id);
-            if (myExpensePlan == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myExpensePlan.UserId);
-            return View(myExpensePlan);
-        }
-
-        // POST: MyExpensePlans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("UniqueId,UserId,ExpenseTags,Discription,Amount,IsMandatory,CreatedDate,LastUpdatedDate")] MyExpensePlan myExpensePlan)
-        {
-            if (id != myExpensePlan.UniqueId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(myExpensePlan);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MyExpensePlanExists(myExpensePlan.UniqueId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myExpensePlan.UserId);
             return View(myExpensePlan);
         }
 

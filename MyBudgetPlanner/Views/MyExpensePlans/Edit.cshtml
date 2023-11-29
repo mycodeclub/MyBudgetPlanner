@@ -17,12 +17,7 @@
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="UniqueId" />
-                        <div class="form-group">
-                            <label asp-for="UserId" class="control-label"></label>
-                            <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                            <span asp-validation-for="UserId" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label asp-for="ExpenseTags" class="control-label"></label>
                             <input asp-for="ExpenseTags" class="form-control" />
                             <span asp-validation-for="ExpenseTags" class="text-danger"></span>
@@ -41,17 +36,7 @@
                             <label class="form-check-label">
                                 <input class="form-check-input" asp-for="IsMandatory" /> @Html.DisplayNameFor(model => model.IsMandatory)
                             </label>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CreatedDate" class="control-label"></label>
-                            <input asp-for="CreatedDate" class="form-control" />
-                            <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="LastUpdatedDate" class="control-label"></label>
-                            <input asp-for="LastUpdatedDate" class="form-control" />
-                            <span asp-validation-for="LastUpdatedDate" class="text-danger"></span>
-                        </div>
+                        </div> 
                         <div class="form-group">
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
