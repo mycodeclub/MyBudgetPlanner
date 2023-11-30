@@ -6,6 +6,23 @@
     ViewBag.activeTabName = "myicome";
 }
 
+<style>
+    .h{
+
+        margin-top:-15px;
+        font-size:25px;
+    }
+
+   
+    .cont{
+
+        margin-top:-20px;
+        margin-left:-10px;
+        margin-right:-10px;
+    }
+
+</style>
+
 
 <link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
 
@@ -13,11 +30,11 @@
 
 <script src="~/js/all.min.js"></script>
 
- <div class="content">
+ <div class="content cont">
     <div class="card">
         <div class="card-body">
 
-<h1>Index</h1>
+<h1 class="fs-1 h">Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -41,7 +58,7 @@
                 @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-               Is PerMonth
+              @Html.DisplayNameFor(model => model.IsPerMonth)
             </th>
             
             <th>

@@ -4,7 +4,18 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
 }
-<div class="content">
+<style>
+
+
+    .cont {
+        margin-top: -20px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+
+</style>
+<div class="content cont">
     <div class="card">
         <div class="card-body">
 
@@ -12,53 +23,57 @@
 
 <h4>Income</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UniqueId" />
-            <div class="form-group">
+            <div class="row">
+            <div class="form-group col-md-4">
                 <label asp-for="IncomeSource" class="control-label"></label>
                 <input asp-for="IncomeSource" class="form-control" />
                 <span asp-validation-for="IncomeSource" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                    <div class="form-group col-md-4">
                 <label asp-for="IncomeDiscription" class="control-label"></label>
                 <input asp-for="IncomeDiscription" class="form-control" />
                 <span asp-validation-for="IncomeDiscription" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                    <div class="form-group col-md-4">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            </div>
+            <div class="row">
+                    <div class="form-group col-md-4">
                 <label asp-for="Month" class="control-label"></label>
                 <input asp-for="Month" class="form-control" />
                 <span asp-validation-for="Month" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                    <div class="form-group col-md-4">
                 <label asp-for="Year" class="control-label"></label>
                 <input asp-for="Year" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+                    <div class="form-group form-check col-md-4 mt-5">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsPerMonth" /> @Html.DisplayNameFor(model => model.IsPerMonth)
                 </label>
             </div>
-           
+           </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
       </div>
-    </div>
-</div>
+  
+
