@@ -3,7 +3,13 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    ViewBag.activeTabName = "myexpenses";
 }
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+
+<link href="~/css/all.css" rel="stylesheet" />
+
+<script src="~/js/all.min.js"></script>
 
 <div class="content">
     <div class="card">
@@ -14,9 +20,9 @@
             <p>
                 <a asp-action="Create">Create New</a>
             </p>
-            <table class="table">
+            <table class="table hover" id="tbl_Expence">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             @Html.DisplayNameFor(model => model.ExpenseTags)
                         </th>
@@ -29,13 +35,13 @@
                         <th>
                             @Html.DisplayNameFor(model => model.IsMandatory)
                         </th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr class="text-center">
                             <td>
                                 @Html.DisplayFor(modelItem => item.ExpenseTags)
                             </td>
@@ -43,15 +49,15 @@
                                 @Html.DisplayFor(modelItem => item.Discription)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
+                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount);
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.IsMandatory)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.UniqueId">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary "></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
+                                <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                     }
@@ -60,3 +66,14 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/js/all.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tbl_Expence').DataTable({ pageLength: 50 });
+        });
+    </script>
+}

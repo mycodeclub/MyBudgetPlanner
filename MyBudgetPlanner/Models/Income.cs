@@ -10,7 +10,7 @@ namespace MyBudgetPlanner.Models
         public string IncomeSource { get; set; } = string.Empty;
         public string IncomeDiscription { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
-        public byte Month { get; set; } = 0;
+        public string Month { get; set; } = string.Empty;
         public int Year { get; set; } = 0;
         // is a recurring
         public bool IsPerMonth { get; set; } = false;

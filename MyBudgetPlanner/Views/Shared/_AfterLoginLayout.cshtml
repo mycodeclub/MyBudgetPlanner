@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BPST Software Solution</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/bootstrap/css/bootstrap.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="~/UiTemplate/AdminTemp/dist/img/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -75,25 +76,28 @@
                     </div>
                 </div>
                 <ul class="sidebar-menu" data-widget="tree">
-                    @if (activeTabName.Equals("EventOrganizer")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/Admin/EventOrganizers/Index">  </a></li>
+                    @if (activeTabName.Equals("myicome")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/MyIncomes/Index"> <i class="icon-ru "></i><span>Income Sources</span> </a></li>
 
-                    <li class="treeview">
-                        <a href="#"> <i class="icon-ru"></i> <span>Income Sources</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
-                        <ul class="treeview-menu">
-                            <li> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Fixed </a> </li>
+                   @*   <li class="treeview active">
+                    <li class="@activeTab" ><a href="/MyIncomes/Index"> <i class="icon-ru "></i> <span>Income Sources</span></a></li>
+                      <ul class="treeview-menu">
+                            <li> <a href="#"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Fixed </a> </li>
                             <li class="active"> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Alternate </a> </li>
-                        </ul>
-                    <li />
+                        </ul>  
+                    <li />  *@
+                  
+                    @if (activeTabName.Equals("myexpenses")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses</span> </a></li>
+                    
 
-
-                    <li class="treeview active">
-                        <a href="#"> <i class="icon-ru"></i> <span>Expenses</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
-                        <ul class="treeview-menu">
+                 @*    <li class="treeview active">
+                       <li > <a href="/MyExpensePlans/Index"> <i class="icon-ru"></i> <span>Expenses</span>   </> </a></li>
+                         <ul class="treeview-menu">
                             <li> <a href="/MyExpensePlans/Index"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Planning </a> </li>
                             <li class="active"> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Exact  </a> </li>
-                        </ul>
-                    <li />
+                        </ul> 
+                    <li /> *@
                             @if (activeTabName.Equals("Register")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/Admin/Scanner/Index"> Scanner </a></li>
                             @*
@@ -121,12 +125,8 @@
     <script src="~/UiTemplate/AdminTemp/dist/js/adminkit.js"></script>
     <script src="~/UiTemplate/AdminTemp/dist/plugins/raphael/raphael-min.js"></script>
     <script src="~/UiTemplate/AdminTemp/dist/plugins/morris/morris.js"></script>
-    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/dashboard1.js"></script>
-    <script src="~/UiTemplate/AdminTemp/dist/plugins/peity/jquery.peity.min.js"></script>
-    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/jquery.peity.init.js"></script>
-    <script src="~/js/Helper.js"></script>
     <script src="~/js/site.js"></script>
-    <script src="~/AppJS/amt.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
