@@ -14,6 +14,7 @@ namespace MyBudgetPlanner.Models
         public int Year { get; set; } = 0;
         // is a recurring
         public bool IsPerMonth { get; set; } = false;
+        [NotMapped]
         public string IncomeType { get { return IsPerMonth ? "Monthly" : "OneTime"; } }
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
