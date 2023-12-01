@@ -11,28 +11,15 @@
 
 <script src="~/js/all.min.js"></script>
 
-<style>
-    .cont {
-        margin-top: -20px;
-        margin-left: -10px;
-        margin-right: -10px;
-    }
 
-    .hed{
-
-        margin-top:-15px;
-        font-size:25px;
-    }
-
-</style>
 
 <div class="content cont">
     <div class="card">
         <div class="card-body">
 
-            <h1 class="hed">Index</h1>
+         
 
-            <p>
+            <p class="float-end">
                 <a asp-action="Create">Create New</a>
             </p>
             <table class="table hover" id="tbl_Expence">
@@ -56,17 +43,17 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr class="text-center">
+                        <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ExpenseTags)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Discription)
                             </td>
-                            <td>
-                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount);
+                            <td class="text-right">
+                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @Html.DisplayFor(modelItem => item.IsMandatory)
                             </td>
                             <td>

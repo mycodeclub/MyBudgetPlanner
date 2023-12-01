@@ -6,6 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\UiTemplate\NewFolder\**" />
+    <Content Remove="wwwroot\UiTemplate\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\UiTemplate\NewFolder\**" />
+    <None Remove="wwwroot\UiTemplate\NewFolder\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />

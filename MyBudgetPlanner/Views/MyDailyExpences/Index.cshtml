@@ -1,38 +1,35 @@
-﻿@model IEnumerable<MyBudgetPlanner.Models.Income>
+﻿@model IEnumerable<MyBudgetPlanner.Models.MyDailyExpence>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
-    ViewBag.activeTabName = "myicome";
+    ViewBag.activeTabName = "DailyExpence";
 }
-
-
 <link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
 
-<link href="~/css/all.css" rel="stylesheet" />
 
-<script src="~/js/all.min.js"></script>
-
- <div class="content cont">
+<div class="content cont">
     <div class="card">
         <div class="card-body">
+<h1>Index</h1>
 
-
-
-<p class="float-end">
+<p>
     <a asp-action="Create">Create New</a>
 </p>
-            <table id="tbl_Income" class=" table hover">
+            <table class="table" id="tbl_DailyExpence">
     <thead>
-             <tr class="text-center">
+                    <tr class="text-center">
             <th>
-                @Html.DisplayNameFor(model => model.IncomeSource)
+                @Html.DisplayNameFor(model => model.ExpenseTags)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IncomeDiscription)
+                @Html.DisplayNameFor(model => model.Discription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dateday)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Month)
@@ -41,27 +38,28 @@
                 @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-              @Html.DisplayNameFor(model => model.IsPerMonth)
+                @Html.DisplayNameFor(model => model.IsMandatory)
             </th>
-            
+           
             <th>
-
-              Action
-
+                Actions
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr class="text-center ">
+        <tr class="text-center">
             <td>
-                @Html.DisplayFor(modelItem => item.IncomeSource)
+                @Html.DisplayFor(modelItem => item.ExpenseTags)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IncomeDiscription)
+                @Html.DisplayFor(modelItem => item.Discription)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dateday)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Month)
@@ -70,21 +68,22 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsPerMonth)
+                @Html.DisplayFor(modelItem => item.IsMandatory)
             </td>
-          
+           
             <td>
-                                <a asp-action="Edit" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
-                                <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
-                                <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
+                <a asp-action="Edit" asp-route-id="@item.UniqueId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-        </div>
-    </div>
 </div>
+</div>
+</div>
+
 @section Scripts {
     <!-- DataTable -->
     <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -92,7 +91,7 @@
     <script src="~/js/all.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tbl_Income').DataTable({ pageLength: 50  });
+            $('#tbl_DailyExpence').DataTable({ pageLength: 50 });
         });
     </script>
 }

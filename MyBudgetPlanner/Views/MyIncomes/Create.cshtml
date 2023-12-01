@@ -6,24 +6,17 @@
 }
 
 
-<style>
-    .month{
 
-        margin-left:0px;
-    }
-
-
-</style>
 <div class="content">
     <div class="card">
         <div class="card-body">
-<h3 class="">Create</h3>
+
 
 <h5>Income</h5>
 <hr />
 
-        <form asp-action="Create">
-
+        <form>
+                <div class="creat float-end"  asp-action="Create"></div>
             <input type="hidden" asp-for="UniqueId" />
             <input type="hidden" asp-for="UserId"/>
 

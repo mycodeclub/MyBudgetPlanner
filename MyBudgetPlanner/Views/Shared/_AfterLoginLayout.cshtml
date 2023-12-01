@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/bootstrap/css/bootstrap.min.css">
+    <link href="~/uitemplate/admintemp/bpst css/reduspace.css" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="~/UiTemplate/AdminTemp/dist/img/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/style.css">
@@ -24,6 +25,8 @@
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/simple-lineicon/simple-line-icons.css" />
     <script src="https://kit.fontawesome.com/a92c00a13e.js" crossorigin="anonymous"></script>
+
+
     @RenderSection("Style", required: false)
 </head>
 <body class="skin-blue sidebar-mini">
@@ -88,7 +91,7 @@
                     <li />  *@
                   
                     @if (activeTabName.Equals("myexpenses")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses</span> </a></li>
+                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses Master</span> </a></li>
                     
 
                  @*    <li class="treeview active">
@@ -98,9 +101,9 @@
                             <li > <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Exact  </a> </li>
                         </ul> 
                     <li /> *@
-                            @if (activeTabName.Equals("Register")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/Admin/Scanner/Index"> Scanner </a></li>
-                            @*
+                    @if (activeTabName.Equals("DailyExpence")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/MyDailyExpences/Index">Daily Expenses</a></li>
+                    @*
                     @if (activeTabName.Equals("Employees")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/Admin/Employees/Index"> Employees</a></li>
                     *@

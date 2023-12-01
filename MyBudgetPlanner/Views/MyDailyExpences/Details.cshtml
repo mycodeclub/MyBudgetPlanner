@@ -1,25 +1,20 @@
-﻿@model MyBudgetPlanner.Models.MyExpensePlan
+﻿@model MyBudgetPlanner.Models.MyDailyExpence
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
 }
-
 
 <div class="content cont">
     <div class="card">
         <div class="card-body">
-<h3>Are you sure you want to delete this?</h3>
+
+<h1>Details</h1>
+
 <div>
-    <h4>MyExpensePlan</h4>
+    <h4>MyDailyExpence</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ExpenseTags)
         </dt>
@@ -39,30 +34,35 @@
             @Html.DisplayFor(model => model.Amount)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dateday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dateday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsMandatory)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsMandatory)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastUpdatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastUpdatedDate)
-        </dd>
+       
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="UniqueId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.UniqueId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>
 </div>
 </div>
