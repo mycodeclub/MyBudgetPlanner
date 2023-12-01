@@ -316,7 +316,7 @@ namespace MyBudgetPlanner.Migrations
                     b.ToTable("Incomes");
                 });
 
-            modelBuilder.Entity("MyBudgetPlanner.Models.MyExpense", b =>
+            modelBuilder.Entity("MyBudgetPlanner.Models.MyDailyExpence", b =>
                 {
                     b.Property<Guid>("UniqueId")
                         .ValueGeneratedOnAdd()
@@ -327,6 +327,9 @@ namespace MyBudgetPlanner.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Dateday")
+                        .HasColumnType("int");
 
                     b.Property<string>("Discription")
                         .IsRequired()
@@ -463,7 +466,7 @@ namespace MyBudgetPlanner.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyBudgetPlanner.Models.MyExpense", b =>
+            modelBuilder.Entity("MyBudgetPlanner.Models.MyDailyExpence", b =>
                 {
                     b.HasOne("MyBudgetPlanner.Models.AppUser", "User")
                         .WithMany()
