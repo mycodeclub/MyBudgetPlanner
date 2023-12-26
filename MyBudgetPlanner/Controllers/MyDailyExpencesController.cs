@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBudgetPlanner.DataBase;
@@ -10,7 +6,7 @@ using MyBudgetPlanner.Models;
 
 namespace MyBudgetPlanner.Controllers
 {
-    public class MyDailyExpencesController : Controller
+    public class MyDailyExpencesController : BaseController
     {
         private readonly AppDbContext _context;
 
@@ -46,9 +42,13 @@ namespace MyBudgetPlanner.Controllers
         }
 
         // GET: MyDailyExpences/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            var loggedInUserId = GetLoggedInUserId();
+            var myExpPlans = await _context.MyExpensePlans.Where(ep => ep.UserId == loggedInUserId).ToListAsync();
+            ViewData["MyExpensePlans"] = myExpPlans;
+
+            ViewData["UserId"] = new MultiSelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -156,14 +156,14 @@ namespace MyBudgetPlanner.Controllers
             {
                 _context.MyExpenses.Remove(myDailyExpence);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MyDailyExpenceExists(Guid id)
         {
-          return (_context.MyExpenses?.Any(e => e.UniqueId == id)).GetValueOrDefault();
+            return (_context.MyExpenses?.Any(e => e.UniqueId == id)).GetValueOrDefault();
         }
     }
 }

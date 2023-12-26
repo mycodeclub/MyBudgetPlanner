@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyBudgetPlanner.Models;
 using System.Diagnostics;
@@ -7,14 +8,24 @@ namespace MyBudgetPlanner.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SignInManager<AppUser> signInManager)
         {
+            _signInManager = signInManager;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        private async Task AdminLogin()
         {
+            await _signInManager.PasswordSignInAsync("admin@bpst.com", "Admin@20", true, lockoutOnFailure: false);
+
+        }
+        public async Task<IActionResult> Index()
+        {
+            await AdminLogin();
+            return RedirectToAction("Create", "MyDailyExpences", new { Area = "Edu" });
+
             return View();
         }
 

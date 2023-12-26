@@ -1,69 +1,80 @@
 ﻿@model MyBudgetPlanner.Models.MyDailyExpence
-
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    List<MyExpensePlan> expensePlans = (List<MyExpensePlan>)ViewData["MyExpensePlans"];
+     
 }
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
 <div class="content cont">
     <div class="card">
         <div class="card-body">
-<h4>MyDailyExpence</h4>
-<hr />
+            <h4>MyDailyExpence</h4>
+            <hr />
 
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-            <div class="form-group col-md-4">
-                <label asp-for="ExpenseTags" class="control-label"></label>
-                <input asp-for="ExpenseTags" class="form-control" />
-                <span asp-validation-for="ExpenseTags" class="text-danger"></span>
-            </div>
-                    <div class="form-group col-md-4">
-                <label asp-for="Discription" class="control-label"></label>
-                <input asp-for="Discription" class="form-control" />
-                <span asp-validation-for="Discription" class="text-danger"></span>
-            </div>
-                    <div class="form-group col-md-4">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label asp-for="ExpenseTags" class="control-label">Expense Area</label>
+                        <select class="form-control selectpicker" multiple="">
+                            @foreach (var items in expensePlans)
+                            {
+                                <option value="@items.UniqueId">@items.ExpenseTags - @items.Discription</option> 
+                            }
+                         </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label asp-for="Discription" class="control-label"></label>
+                            <textarea asp-for="Discription" rows="5" class="form-control"></textarea>
+                            <span asp-validation-for="Discription" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label asp-for="Amount" class="control-label"></label>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label asp-for="Dateday" class="control-label">Date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" asp-for="Dateday" placeholder="dd" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" asp-for="Month" placeholder="MM" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" asp-for="Year" placeholder="yyyy" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsMandatory" /> @Html.DisplayNameFor(model => model.IsMandatory)
+                    </label>
                 </div>
 
-                <div class="row">
-            <div class="form-group col-md-4">
-                <label asp-for="Dateday" class="control-label"></label>
-                <input asp-for="Dateday" class="form-control" />
-                <span asp-validation-for="Dateday" class="text-danger"></span>
-            </div>
-                    <div class="form-group col-md-4">
-                <label asp-for="Month" class="control-label"></label>
-                <input asp-for="Month" class="form-control" />
-                <span asp-validation-for="Month" class="text-danger"></span>
-            </div>
-                    <div class="form-group col-md-4">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsMandatory" /> @Html.DisplayNameFor(model => model.IsMandatory)
-                </label>
-            </div>
-           
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-</div>
-</div>
-</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
