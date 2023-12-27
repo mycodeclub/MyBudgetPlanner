@@ -18,8 +18,15 @@ namespace MyBudgetPlanner.Controllers
 
         private async Task AdminLogin()
         {
-            await _signInManager.PasswordSignInAsync("admin@bpst.com", "Admin@20", true, lockoutOnFailure: false);
+            try
+            {
+                var result = await _signInManager.PasswordSignInAsync("ankit@bpst.com", "ankit@bpst.com", true, lockoutOnFailure: false);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
 
+            }
         }
         public async Task<IActionResult> Index()
         {

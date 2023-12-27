@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBudgetPlanner.DataBase;
@@ -6,6 +7,7 @@ using MyBudgetPlanner.Models;
 
 namespace MyBudgetPlanner.Controllers
 {
+    [Authorize]
     public class MyDailyExpencesController : BaseController
     {
         private readonly AppDbContext _context;
@@ -18,7 +20,7 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyDailyExpences
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.MyExpenses.Include(m => m.User);
+            var appDbContext = _context.MyExpenses.Include(m => m.User).Where(e => e.UserId == GetLoggedInUserId()); 
             return View(await appDbContext.ToListAsync());
         }
 
@@ -42,14 +44,19 @@ namespace MyBudgetPlanner.Controllers
         }
 
         // GET: MyDailyExpences/Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(Guid id)
         {
-            var loggedInUserId = GetLoggedInUserId();
-            var myExpPlans = await _context.MyExpensePlans.Where(ep => ep.UserId == loggedInUserId).ToListAsync();
-            ViewData["MyExpensePlans"] = myExpPlans;
-
-            ViewData["UserId"] = new MultiSelectList(_context.Users, "Id", "Id");
-            return View();
+            MyDailyExpence? expence = await _context.MyExpenses.FindAsync(keyValues: id);
+            expence ??= new MyDailyExpence()
+            {
+                ExpenceDate = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow
+            };
+            expence.ExpenseTagIds = expence.ExpenseTags.Split(",").ToList();
+            var MyExpensePlans = await _context.MyExpensePlans
+                .Where(ep => ep.UserId == GetLoggedInUserId()).ToListAsync();
+            ViewBag.MyExpensePlans = MyExpensePlans;
+            return View(expence);
         }
 
         // POST: MyDailyExpences/Create
@@ -57,71 +64,32 @@ namespace MyBudgetPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UniqueId,ExpenseTags,Discription,Amount,Dateday,Month,Year,IsMandatory,UserId,CreatedDate,LastUpdatedDate")] MyDailyExpence myDailyExpence)
+        public async Task<IActionResult> Create(MyDailyExpence myDailyExpence)
         {
+            myDailyExpence.ExpenseTags = string.Join(",", myDailyExpence.ExpenseTagIds);
+
             if (ModelState.IsValid)
             {
-                myDailyExpence.UniqueId = Guid.NewGuid();
-                _context.Add(myDailyExpence);
+                if (myDailyExpence.Equals(Guid.Empty))
+                {
+                    myDailyExpence.UniqueId = Guid.NewGuid();
+                    myDailyExpence.CreatedDate = DateTime.Now;
+                    _context.Add(myDailyExpence);
+                }
+                else
+                {
+                    myDailyExpence.LastUpdatedDate = DateTime.UtcNow;
+                    _context.Update(myDailyExpence);
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myDailyExpence.UserId);
+            ViewBag.MyExpensePlans = await _context.MyExpensePlans
+               .Where(ep => ep.UserId == GetLoggedInUserId()).ToListAsync();
             return View(myDailyExpence);
         }
 
-        // GET: MyDailyExpences/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.MyExpenses == null)
-            {
-                return NotFound();
-            }
-
-            var myDailyExpence = await _context.MyExpenses.FindAsync(id);
-            if (myDailyExpence == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myDailyExpence.UserId);
-            return View(myDailyExpence);
-        }
-
-        // POST: MyDailyExpences/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("UniqueId,ExpenseTags,Discription,Amount,Dateday,Month,Year,IsMandatory,UserId,CreatedDate,LastUpdatedDate")] MyDailyExpence myDailyExpence)
-        {
-            if (id != myDailyExpence.UniqueId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(myDailyExpence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MyDailyExpenceExists(myDailyExpence.UniqueId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", myDailyExpence.UserId);
-            return View(myDailyExpence);
-        }
 
         // GET: MyDailyExpences/Delete/5
         public async Task<IActionResult> Delete(Guid? id)

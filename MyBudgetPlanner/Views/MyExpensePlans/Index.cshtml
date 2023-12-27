@@ -6,22 +6,13 @@
     ViewBag.activeTabName = "myexpenses";
 }
 <link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
-
 <link href="~/css/all.css" rel="stylesheet" />
-
 <script src="~/js/all.min.js"></script>
-
-
 
 <div class="content cont">
     <div class="card">
         <div class="card-body">
-
-         
-
-            <p class="float-end">
-                <a asp-action="Create">Create New</a>
-            </p>
+            <p class="float-end"> <a asp-action="Create">Create New</a> </p>
             <table class="table hover" id="tbl_Expence">
                 <thead>
                     <tr class="text-center">
@@ -44,20 +35,12 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td> @Html.DisplayFor(modelItem => item.ExpenseTags) </td>
+                            <td> @Html.DisplayFor(modelItem => item.Discription) </td>
+                            <td class="text-right"> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)                             </td>
+                            <td class="text-center"> @Html.DisplayFor(modelItem => item.IsMandatory)                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ExpenseTags)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Discription)
-                            </td>
-                            <td class="text-right">
-                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
-                            </td>
-                            <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.IsMandatory)
-                            </td>
-                            <td>
-                                <a asp-action="Create"  asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary "></i></a> |
+                                <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary "></i></a> |
                                 <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
                                 <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
                             </td>

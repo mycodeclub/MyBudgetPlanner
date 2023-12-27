@@ -1,3 +1,4 @@
 /.vs/
 /MyBudgetPlanner/obj/
 /MyBudgetPlanner/bin/
+/MyBudgetPlanner/Controllers/MyDailyExpences1Controller.cs

@@ -11,75 +11,58 @@
 <div class="content cont">
     <div class="card">
         <div class="card-body">
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
             <table class="table" id="tbl_DailyExpence">
-    <thead>
+                <thead>
                     <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.ExpenseTags)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dateday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Month)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsMandatory)
-            </th>
-           
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpenseTags)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Discription)
-            </td>
-            <td class="text-right">
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dateday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Month)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsMandatory)
-            </td>
-           
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UniqueId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
-</div>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseTags)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Discription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsMandatory)
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseTags)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discription)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td> 
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsMandatory)
+                            </td>
+
+                            <td>
+                                <a asp-action="Create" asp-route-id="@item.UniqueId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

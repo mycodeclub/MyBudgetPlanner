@@ -13,8 +13,7 @@ namespace MyBudgetPlanner.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
-        //var userEmail = User.Identity.Name;
-        //var dbUser = _context.Users.SingleOrDefault(u => u.Email == userEmail);
+
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, AppDbContext context)
         {
             _userManager = userManager;
