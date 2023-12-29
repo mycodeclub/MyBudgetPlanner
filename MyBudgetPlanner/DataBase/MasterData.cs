@@ -12,7 +12,7 @@ namespace MyBudgetPlanner.DataBase
                 new() { IncomeSource = "Sold Old Laptop", IsPerMonth = false }
             };
 
-        public static List<ExpenseTag> Tags = new List<ExpenseTag>()
+        public static List<ExpenseTagMaster> Tags = new List<ExpenseTagMaster>()
             {
                 new() { TagName = "House Rent", Description = "living in different city" },
                 new() { TagName = "Electricity Bill-SelfHome", Description = "Own Home" },
@@ -22,7 +22,7 @@ namespace MyBudgetPlanner.DataBase
                 new() { TagName = "Savings", Description = "Savings" },
                 new() { TagName = "Entertainment", Description = "Movie, Weekend Party, Fun activity ETC" },
         };
-        //        public static List<MyExpensePlan> Expenses = Tags.Select(t => new MyExpensePlan() { ExpenseTags = t.TagName, Discription = t.Description, IsMandatory = true }).ToList();
+        //        public static List<MyExpensePlan> Expenses = Tags.Select(t => new MyExpensePlan() { ExpenseTagCommaList = t.TagName, Discription = t.Description, IsMandatory = true }).ToList();
 
 
     }

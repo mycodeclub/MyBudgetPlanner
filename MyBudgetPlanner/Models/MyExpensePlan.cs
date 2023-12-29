@@ -11,8 +11,8 @@ namespace MyBudgetPlanner.Models
         [ForeignKey("UserId")]
         public AppUser? User { get; set; }
 
-        public string ExpenseTags { get; set; } = string.Empty;
-        public string Discription { get; set; } = string.Empty;
+        public string ExpenseName { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
         [Display(Name = "Is Mandatory")]
         public bool IsMandatory { get; set; } = false;

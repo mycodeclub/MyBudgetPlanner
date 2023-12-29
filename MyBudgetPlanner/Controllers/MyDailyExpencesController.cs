@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBudgetPlanner.DataBase;
 using MyBudgetPlanner.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyBudgetPlanner.Controllers
 {
@@ -20,24 +20,28 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyDailyExpences
         public async Task<IActionResult> Index()
         {
-            var myDailyExpences = await _context.MyExpenses.Include(m => m.User).Where(e => e.UserId == GetLoggedInUserId()).ToListAsync();
-            //            foreach (var item in myDailyExpences)
-            //            {
-            //                var exp = await _context.MyExpensePlans.Where(p => item.ExpenseTagIds.Contains(p.UniqueId.ToString())).ToList(); 
-            //em.ExpenseTagsNames =
-            //            }
+            var myDailyExpences = await _context.MyDailyExpenses.Where(e => e.UserId == GetLoggedInUserId()).ToListAsync();
+            var plan = await _context.MyExpensePlans.Where(p => p.UserId.Equals(GetLoggedInUserId())).ToListAsync();
+            foreach (var exp in myDailyExpences)
+            {
+                var ex = plan.Where(e => exp.ExpenseTagCommaList.Split(',').Contains(e.UniqueId.ToString())).ToList();
+                exp.ExpenseTagNames = string.Join(Environment.NewLine, ex.Select(item => $"{item.Description}"));
+                if (exp.ExpenseTagNames.Length > 20)
+                    exp.ExpenseTagNames = exp.ExpenseTagNames.Substring(0, 20) + "...";
+                // string.Join(Environment.NewLine, ex.Select(item => $"{item.Description}: {item.ExpenseName}"));  
+            }
             return View(myDailyExpences);
         }
 
         // GET: MyDailyExpences/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.MyExpenses == null)
+            if (id == null || _context.MyDailyExpenses == null)
             {
                 return NotFound();
             }
 
-            var myDailyExpence = await _context.MyExpenses
+            var myDailyExpence = await _context.MyDailyExpenses
                 .Include(m => m.User)
                 .FirstOrDefaultAsync(m => m.UniqueId == id);
             if (myDailyExpence == null)
@@ -51,13 +55,13 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyDailyExpences/Create
         public async Task<IActionResult> Create(Guid id)
         {
-            MyDailyExpence? expence = await _context.MyExpenses.FindAsync(keyValues: id);
+            MyDailyExpence? expence = await _context.MyDailyExpenses.FindAsync(keyValues: id);
             expence ??= new MyDailyExpence()
             {
                 ExpenceDate = DateTime.UtcNow,
                 CreatedDate = DateTime.UtcNow
             };
-            expence.ExpenseTagIds = expence.ExpenseTags.Split(",").ToList();
+            expence.ExpenseTagIds = expence.ExpenseTagCommaList.Split(",").ToList();
             var MyExpensePlans = await _context.MyExpensePlans
                 .Where(ep => ep.UserId == GetLoggedInUserId()).ToListAsync();
             ViewBag.MyExpensePlans = MyExpensePlans;
@@ -71,7 +75,7 @@ namespace MyBudgetPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(MyDailyExpence myDailyExpence)
         {
-            myDailyExpence.ExpenseTags = string.Join(",", myDailyExpence.ExpenseTagIds);
+            myDailyExpence.ExpenseTagCommaList = string.Join(",", myDailyExpence.ExpenseTagIds);
 
             if (ModelState.IsValid)
             {
@@ -100,12 +104,12 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyDailyExpences/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.MyExpenses == null)
+            if (id == null || _context.MyDailyExpenses == null)
             {
                 return NotFound();
             }
 
-            var myDailyExpence = await _context.MyExpenses
+            var myDailyExpence = await _context.MyDailyExpenses
                 .Include(m => m.User)
                 .FirstOrDefaultAsync(m => m.UniqueId == id);
             if (myDailyExpence == null)
@@ -121,14 +125,14 @@ namespace MyBudgetPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.MyExpenses == null)
+            if (_context.MyDailyExpenses == null)
             {
-                return Problem("Entity set 'AppDbContext.MyExpenses'  is null.");
+                return Problem("Entity set 'AppDbContext.MyDailyExpenses'  is null.");
             }
-            var myDailyExpence = await _context.MyExpenses.FindAsync(id);
+            var myDailyExpence = await _context.MyDailyExpenses.FindAsync(id);
             if (myDailyExpence != null)
             {
-                _context.MyExpenses.Remove(myDailyExpence);
+                _context.MyDailyExpenses.Remove(myDailyExpence);
             }
 
             await _context.SaveChangesAsync();
@@ -137,7 +141,7 @@ namespace MyBudgetPlanner.Controllers
 
         private bool MyDailyExpenceExists(Guid id)
         {
-            return (_context.MyExpenses?.Any(e => e.UniqueId == id)).GetValueOrDefault();
+            return (_context.MyDailyExpenses?.Any(e => e.UniqueId == id)).GetValueOrDefault();
         }
     }
 }

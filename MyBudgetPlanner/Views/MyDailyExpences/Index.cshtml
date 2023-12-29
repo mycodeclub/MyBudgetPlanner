@@ -18,10 +18,10 @@
                 <thead>
                     <tr class="text-center">
                         <th>
-                            @Html.DisplayNameFor(model => model.ExpenseTags)
+                            @Html.DisplayNameFor(model => model.ExpenseTagNames)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Discription)
+                            @Html.DisplayNameFor(model => model.Description)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Amount)
@@ -40,10 +40,10 @@
                     {
                         <tr class="text-center">
                             <td>
-                                @Html.DisplayFor(modelItem => item.ExpenseTags)
+                                @Html.DisplayFor(modelItem => item.ExpenseTagNames)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Discription)
+                                @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td class="text-right">
                                 @Html.DisplayFor(modelItem => item.Amount)

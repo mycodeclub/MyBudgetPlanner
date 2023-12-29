@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBudgetPlanner.Models
 {
-    public class ExpenseTag
+    public class ExpenseTagMaster
     {
         [Key]
         public int Id { get; set; }

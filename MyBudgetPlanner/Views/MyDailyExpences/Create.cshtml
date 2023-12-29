@@ -19,23 +19,23 @@
                 <input type="hidden" asp-for="LastUpdatedDate" />    
                 <input type="hidden" asp-for="UserId" />
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label asp-for="ExpenseTagIds" class="control-label">Expense Area</label>
                         <select asp-for="ExpenseTagIds" class="form-control selectpicker" multiple>
                             @foreach (var items in ViewBag.MyExpensePlans)
                             {
-                                <option value="@items.UniqueId">@items.ExpenseTags - @items.Discription</option>
+                                <option value="@items.UniqueId">@items.ExpenseName - @items.Description</option>
                             }
                         </select>
-                        <span asp-validation-for="ExpenseTags" class="text-danger"></span>
+                        <span asp-validation-for="ExpenseTagCommaList" class="text-danger"></span>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label asp-for="Discription" class="control-label"></label>
-                            <textarea asp-for="Discription" rows="5" class="form-control"></textarea>
-                            <span asp-validation-for="Discription" class="text-danger"></span>
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                     </div>
 
