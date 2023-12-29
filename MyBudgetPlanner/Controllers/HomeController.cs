@@ -31,7 +31,7 @@ namespace MyBudgetPlanner.Controllers
         public async Task<IActionResult> Index()
         {
             await AdminLogin();
-            return RedirectToAction("Create", "MyDailyExpences", new { Area = "Edu" });
+            return RedirectToAction("Create", "MyDailyExpences");
 
             return View();
         }

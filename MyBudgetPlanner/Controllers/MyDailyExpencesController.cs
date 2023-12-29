@@ -20,8 +20,13 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyDailyExpences
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.MyExpenses.Include(m => m.User).Where(e => e.UserId == GetLoggedInUserId()); 
-            return View(await appDbContext.ToListAsync());
+            var myDailyExpences = await _context.MyExpenses.Include(m => m.User).Where(e => e.UserId == GetLoggedInUserId()).ToListAsync();
+            //            foreach (var item in myDailyExpences)
+            //            {
+            //                var exp = await _context.MyExpensePlans.Where(p => item.ExpenseTagIds.Contains(p.UniqueId.ToString())).ToList(); 
+            //em.ExpenseTagsNames =
+            //            }
+            return View(myDailyExpences);
         }
 
         // GET: MyDailyExpences/Details/5
@@ -70,13 +75,14 @@ namespace MyBudgetPlanner.Controllers
 
             if (ModelState.IsValid)
             {
-                if (myDailyExpence.Equals(Guid.Empty))
+                if (myDailyExpence.UniqueId.Equals(Guid.Empty))
                 {
                     myDailyExpence.UniqueId = Guid.NewGuid();
                     myDailyExpence.CreatedDate = DateTime.Now;
+                    myDailyExpence.UserId = GetLoggedInUserId();
                     _context.Add(myDailyExpence);
                 }
-                else
+                else if (myDailyExpence.UserId == GetLoggedInUserId())
                 {
                     myDailyExpence.LastUpdatedDate = DateTime.UtcNow;
                     _context.Update(myDailyExpence);
