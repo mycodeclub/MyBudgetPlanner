@@ -12,7 +12,7 @@ namespace MyBudgetPlanner.Models
         public AppUser? User { get; set; }
 
         public string ExpenseName { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string ?Description { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
         [Display(Name = "Is Mandatory")]
         public bool IsMandatory { get; set; } = false;

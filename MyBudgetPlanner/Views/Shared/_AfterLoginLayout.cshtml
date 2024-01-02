@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BPST Software Solution</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
     <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/bootstrap/css/bootstrap.min.css">
     <link href="~/uitemplate/admintemp/bpst css/reduspace.css" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="~/UiTemplate/AdminTemp/dist/img/favicon-16x16.png">
@@ -79,34 +79,17 @@
                     </div>
                 </div>
                 <ul class="sidebar-menu" data-widget="tree">
+                    @if (activeTabName.Equals("Dashboard")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/Home/Dashboard"> <i class="icon-ru "></i><span> Dashboard</span> </a></li>
+
                     @if (activeTabName.Equals("myicome")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/MyIncomes/Index"> <i class="icon-ru "></i><span>Income Sources</span> </a></li>
 
-                   @*   <li class="treeview active">
-                    <li class="@activeTab" ><a href="/MyIncomes/Index"> <i class="icon-ru "></i> <span>Income Sources</span></a></li>
-                      <ul class="treeview-menu">
-                            <li> <a href="#"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Fixed </a> </li>
-                            <li class="active"> <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Alternate </a> </li>
-                        </ul>  
-                    <li />  *@
-                  
                     @if (activeTabName.Equals("myexpenses")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses Master</span> </a></li>
-                    
+                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses Plan</span> </a></li>
 
-                 @*    <li class="treeview active">
-                       <li > <a href="/MyExpensePlans/Index"> <i class="icon-ru"></i> <span>Expenses</span>   </> </a></li>
-                         <ul class="treeview-menu">
-                            <li class="active"> <a href="/MyExpensePlans/Index"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Planning </a> </li>
-                            <li > <a href="apps-calendar.html"> <i class="fa  fa-inr"></i> <i class="fa fa-angle-right"></i> Exact  </a> </li>
-                        </ul> 
-                    <li /> *@
                     @if (activeTabName.Equals("DailyExpence")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/MyDailyExpences/Index">Daily Expenses</a></li>
-                    @*
-                    @if (activeTabName.Equals("Employees")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/Admin/Employees/Index"> Employees</a></li>
-                    *@
 
 
                     <li><a href="/Account/LogOut"><i class="fa fa-power-off"></i> LogOut</a></li>

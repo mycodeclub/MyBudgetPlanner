@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    List<MyExpensePlan> expenses = ViewBag.ExpensePlan;
+    ViewBag.activeTabName = "Dashboard";
+    string text = string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(23345.ToString(), CultureInfo.InvariantCulture));
+    string[] colors = new[] { "tile-red", "tile-pink", "tile-cyan","badge bg-danger", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua" };
+
+
+
+    //var TotalExamCount = ViewBag.TotalExamCount;
+    //var NextScheduledExams = ViewBag.NextScheduledExams;
+    //var ExamsInProgress = ViewBag.ExamsInProgress;
+    //var CompletedExams = ViewBag.CompletedExams;
+    // var JobRoles = (List<OnlineExam.Models.AssessmentBody.AssBodyJobRole>)ViewBag.JobRoles;
+    // var batches = (List<OnlineExam.Models.Exam.Batch>)ViewBag.batches;
+
+}
+<div class="content-header sty-one">
+    <h1>Assessment Body Dashboard</h1>
+
+</div>
+<div class="content">
+    <div class="row">
+        @foreach (var p in expenses)
+        {
+
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="info-widget-text row">
+                            <div class="col-sm-6 pull-left"><span>@p.ExpenseName </span></div>
+                            <div class="col-sm-6 pull-right text-right text-blue f-25">
+                                @string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(@p.Amount.ToString()
+                                         , CultureInfo.InvariantCulture));
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left"><span>Upcomming Exams</span></div>
+                        <div class="col-sm-6 pull-right text-right text-blue f-25"> NextScheduledExams</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left"><span>Exams In Progress</span></div>
+                        <div class="col-sm-6 pull-right text-right text-blue f-25"> ExamsInProgress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    @*<div class="m-b-1"> <i class="icon-rss f-30 text-blue"></i> <span class="pull-right text-muted">Posts</span> </div>*@
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left"><span>Completed Exams</span></div>
+                        <div class="col-sm-6 pull-right text-right text-blue f-25"> iewBag.CompletedExams</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+
+        @for (int i = 0; i < expenses.Count(); i++)
+        {
+            var p = expenses[i];
+            <div class="col-lg-3">
+                <div class="tile-progress @colors[i]">
+                    <div class="tile-header">
+                        <h5>@p.ExpenseName </h5>
+                        <h3>
+                            @string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(@p.Amount.ToString()
+                                     , CultureInfo.InvariantCulture));
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="info-box">
+                <div class="card-header">
+                    <h5 class="card-title">Questions Per Job Roles  <a class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>QP Code</th>
+                                <th>QP Name</th>
+                                <th>AVilable Questions </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>  JobRoleMaster.QPCode</td>
+                                <td> JobRoleMaster.QPName</td>
+                                <td> QuestionCount</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="info-box">
+                <div class="card-header">
+                    <h5 class="card-title">Batches  <a class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>BatchId</th>
+                                <th> Description</th>
+                                <th>Number Of Students</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>  b.BatchId</td>
+                                <td>  b.BatchDescription </td>
+                                <td>  b.StudentCount</td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
