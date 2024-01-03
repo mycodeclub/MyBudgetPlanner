@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    ViewBag.activeTabName = "myicome";
 }
 
 
@@ -15,7 +16,7 @@
 <h5>Income</h5>
 <hr />
 
-        <form>
+            <form asp-action="Create">
                 <div class="creat float-end"  asp-action="Create"></div>
             <input type="hidden" asp-for="UniqueId" />
             <input type="hidden" asp-for="UserId"/>

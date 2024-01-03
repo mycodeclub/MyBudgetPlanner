@@ -9,7 +9,7 @@ namespace MyBudgetPlanner.Models
         public Guid UniqueId { get; set; }
 
         public string ExpenseTagCommaList { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
         [Required]
         public int Amount { get; set; } = 0;
 

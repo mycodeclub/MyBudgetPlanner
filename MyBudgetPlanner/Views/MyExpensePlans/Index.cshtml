@@ -9,7 +9,7 @@
 <link href="~/css/all.css" rel="stylesheet" />
 <script src="~/js/all.min.js"></script>
 
-<div class="content cont">
+<div class="content">
     <div class="card">
         <div class="card-body">
             <p class="float-end"> <a asp-action="Create">Create New</a> </p>
@@ -47,7 +47,15 @@
                         </tr>
                     }
                 </tbody>
+                <tfoot>
+
+                    <tr>
+                        <td colspan="6" class="text-bold  text-center ">  Total Amount : <span>&#8377;@Model.Sum(r => r.Amount)</span></td>
+
+                    </tr>
+                </tfoot>
             </table>
+         
         </div>
     </div>
 </div>

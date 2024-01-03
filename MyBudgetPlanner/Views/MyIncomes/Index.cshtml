@@ -13,7 +13,8 @@
 
 <script src="~/js/all.min.js"></script>
 
- <div class="content cont">
+
+<div class="content">
     <div class="card">
         <div class="card-body">
 
@@ -61,7 +62,7 @@
                 @Html.DisplayFor(modelItem => item.IncomeDiscription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+           @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Month)
@@ -81,7 +82,16 @@
         </tr>
 }
     </tbody>
+
+                <tfoot>
+
+                    <tr>
+                        <td colspan="6" class="text-bold  text-center ">  Total Amount : &#8377;@Model.Sum(r => r.Amount)</td>
+
+                    </tr>
+                </tfoot>
 </table>
+           
         </div>
     </div>
 </div>

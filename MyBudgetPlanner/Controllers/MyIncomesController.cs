@@ -57,9 +57,9 @@ namespace MyBudgetPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UniqueId,IncomeSource,IncomeDiscription,Amount,Month,Year,IsPerMonth,UserId")] Income income)
+        public async Task<IActionResult> Create(Income income)
         {
-            if (ModelState.IsValid)
+            if (income!=null)
             {
                 income.UniqueId = Guid.NewGuid();
                 _context.Add(income);

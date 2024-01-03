@@ -11,7 +11,7 @@ using MyBudgetPlanner.Models;
 
 namespace MyBudgetPlanner.Controllers
 {
-    public class MyExpensePlansController : Controller
+    public class MyExpensePlansController : BaseController
     {
         private readonly AppDbContext _context;
 
@@ -78,13 +78,14 @@ namespace MyBudgetPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (myExpensePlan.UniqueId.Equals(Guid.Empty))
+                if (myExpensePlan.UniqueId.Equals(Guid.Empty)) // create 
                 {
                     myExpensePlan.UniqueId = Guid.NewGuid();
                     myExpensePlan.CreatedDate = DateTime.UtcNow;
+                    myExpensePlan.UserId = GetLoggedInUserId();
                     _context.Add(myExpensePlan);
                 }
-                else
+                else if (myExpensePlan.UserId == GetLoggedInUserId()) // update 
                 {
                     myExpensePlan.LastUpdatedDate = DateTime.UtcNow;
                     _context.Update(myExpensePlan);

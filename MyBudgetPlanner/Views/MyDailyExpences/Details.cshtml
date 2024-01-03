@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    ViewBag.activeTabName = "DailyExpence";
 }
 
 <div class="content cont">
@@ -44,7 +45,7 @@
                 </dl>
             </div>
             <div>
-                <a asp-action="Edit" asp-route-id="@Model?.UniqueId">Edit</a> |
+                <a asp-action="Create" asp-route-id="@Model?.UniqueId">Edit</a> |
                 <a asp-action="Index">Back to List</a>
             </div>
         </div>

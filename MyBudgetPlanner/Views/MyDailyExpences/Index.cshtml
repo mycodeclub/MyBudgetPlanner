@@ -8,12 +8,13 @@
 <link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
 
 
-<div class="content cont">
+<div class="content">
     <div class="card">
         <div class="card-body">
             <p>
                 <a asp-action="Create">Create New</a>
             </p>
+           
             <table class="table" id="tbl_DailyExpence">
                 <thead>
                     <tr class="text-center">
@@ -46,7 +47,7 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td class="text-right">
-                                @Html.DisplayFor(modelItem => item.Amount)
+                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
                             </td> 
                             <td>
                                 @Html.DisplayFor(modelItem => item.IsMandatory)
@@ -59,9 +60,29 @@
                             </td>
                         </tr>
                     }
+                  
                 </tbody>
+
+                <tfoot>
+                   
+                    <tr>
+                        <td colspan="5" class="text-bold  text-center ">  Total Amount : <span>&#8377;@Model.Sum(r => r.Amount)</span></td>
+                        
+                    </tr>
+                </tfoot>
+                
+                    
+                      
+                        
+                        
+                    
+                
+              
             </table>
+
+            
         </div>
+      
     </div>
 </div>
 

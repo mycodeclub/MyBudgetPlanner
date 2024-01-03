@@ -12,7 +12,7 @@ namespace MyBudgetPlanner.Models
         public string IncomeSource { get; set; } = string.Empty;
 
         [Display(Name = "Income Discription")]
-        public string IncomeDiscription { get; set; } = string.Empty;
+        public string? IncomeDiscription { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
         public string Month { get; set; } = string.Empty;
         public int Year { get; set; } = 0;
