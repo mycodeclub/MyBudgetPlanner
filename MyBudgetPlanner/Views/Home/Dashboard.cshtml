@@ -2,24 +2,16 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
     List<MyExpensePlan> expenses = ViewBag.ExpensePlan;
+    List<Income> incomes = ViewBag.Income;
     ViewBag.activeTabName = "Dashboard";
     string text = string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(23345.ToString(), CultureInfo.InvariantCulture));
     string[] colors = new[] { "tile-red", "tile-pink", "tile-cyan", "badge bg-danger", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua" };
 
-
-
-    //var TotalExamCount = ViewBag.TotalExamCount;
-    //var NextScheduledExams = ViewBag.NextScheduledExams;
-    //var ExamsInProgress = ViewBag.ExamsInProgress;
-    //var CompletedExams = ViewBag.CompletedExams;
-    // var JobRoles = (List<OnlineExam.Models.AssessmentBody.AssBodyJobRole>)ViewBag.JobRoles;
-    // var batches = (List<OnlineExam.Models.Exam.Batch>)ViewBag.batches;
-
 }
 <div class="content-header sty-one">
-    <h1>Assessment Body Dashboard</h1>
-
-</div>
+    <h1>My Budget Plan </h1>
+</div> 
+ 
 <div class="content">
     <div class="row">
         @for (int i = 0; i < expenses.Count(); i++)
@@ -29,10 +21,7 @@
                 <div class="tile-progress @colors[i]">
                     <div class="tile-header">
                         <h5>@p.ExpenseName </h5>
-                        <h3>
-                            @string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(@p.Amount.ToString()
-                                     , CultureInfo.InvariantCulture));
-                        </h3>
+                        <h3>   @string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(@p.Amount.ToString(), CultureInfo.InvariantCulture)); </h3>
                     </div>
                 </div>
             </div>
@@ -45,9 +34,9 @@
         <div class="col-xl-12">
             <div class="info-box">
                 <div class="card-header">
-                    <h5 class="card-title">Expenses Plans  <a target="_blank" href="/MyExpensePlans/Index" class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
+                    <h5 class="card-title">My Expenses Plan <a target="_blank" href="/MyExpensePlans/Index" class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
                 </div>
-                <div class="table-responsive">
+                <div class="table table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -60,9 +49,9 @@
                             @foreach (var exp in expenses)
                             {
                                 <tr>
-                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.ExpenseName) </td>
-                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.Description) </td>
-                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.Amount) </td>
+                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.ExpenseName)  </td>
+                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.Description)   </td>
+                                    <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.Amount) /-</td>
                                 </tr>
                             }
                         </tbody>
@@ -71,44 +60,53 @@
                                 <th></th>
                                 <th></th>
                                 <th> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", expenses.Sum(e => e.Amount)) /-</th>
-                             </tr>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="info-box">
-                <div class="card-header">
-                    <h5 class="card-title">Batches  <a class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>BatchId</th>
-                                <th> Description</th>
-                                <th>Number Of Students</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>  b.BatchId</td>
-                                <td>  b.BatchDescription </td>
-                                <td>  b.StudentCount</td>
-                            </tr>
-
-
-
-                        </tbody>
-                    </table>
+    @if (incomes != null && incomes.Any())
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="info-box">
+                    <div class="card-header">
+                        <h5 class="card-title">Income Sources  For This Month <a target="_blank" href="/MyIncomes/Index" class="btn btn-sm btn-primary pull-right text-white">View all</a></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Expense </th>
+                                    <th> Description</th>
+                                    <th> Amount </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var income in incomes)
+                                {
+                                    <tr>
+                                        <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", income.IncomeSource)  </td>
+                                        <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", income.IncomeDiscription) </td>
+                                        <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", income.Amount) /-</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", incomes.Sum(e => e.Amount)) /-</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 

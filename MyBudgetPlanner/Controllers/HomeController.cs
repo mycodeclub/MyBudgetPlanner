@@ -47,8 +47,9 @@ namespace MyBudgetPlanner.Controllers
         }
         public async Task<IActionResult> Dashboard()
         {
-            var expensePlan = await _context.MyExpensePlans.Where(p => p.UserId.Equals(GetLoggedInUserId())).ToListAsync();
-            ViewBag.ExpensePlan = expensePlan;
+            ViewBag.ExpensePlan = await _context.MyExpensePlans.Where(p => p.UserId.Equals(GetLoggedInUserId())).ToListAsync();
+            var income = await _context.Incomes.Where(predicate: p => p.UserId.Equals(GetLoggedInUserId()) && p.Year.Equals(DateTime.Now.Year) && p.Month.Equals(DateTime.Now.Month)).ToListAsync();
+            ViewBag.Income = income;
             return View();
         }
 

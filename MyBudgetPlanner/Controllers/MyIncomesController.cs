@@ -19,8 +19,8 @@ namespace MyBudgetPlanner.Controllers
         // GET: MyIncomes
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Incomes.Include(i => i.User);
-            return View(await appDbContext.ToListAsync());
+            var income = await _context.Incomes.Where(predicate: p => p.UserId.Equals(GetLoggedInUserId())).GroupBy(p => p.Year).ToListAsync();
+            return View(income);
         }
 
         // GET: MyIncomes/Details/5

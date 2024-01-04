@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MyBudgetPlanner.Models.Income>
+﻿@* @model IEnumerable<MyBudgetPlanner.Models.Income> *@
+@model IEnumerable<IGrouping<int, MyBudgetPlanner.Models.Income>>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -26,71 +28,44 @@
             <table id="tbl_Income" class=" table hover">
                 <thead>
                     <tr class="text-center">
-                        <th>
-                            @Html.DisplayNameFor(model => model.IncomeSource)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IncomeDiscription)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Amount)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Month)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Year)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsPerMonth)
-                        </th>
-
-                        <th>
-
-                            Action
-
-                        </th>
+                        <th> Year </th>
+                        <th> Month </th>
+                        <th> Income Source </th>
+                        <th> Income Discription </th>
+                        <th> Amount </th>
+                        <th> Is PerMonth</th>
+                        <th> Action </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var year in Model.OrderByDescending(y=>y.Key))
                     {
-                        <tr class="text-center ">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IncomeSource)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IncomeDiscription)
-                            </td>
-                            <td>
-                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Month)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Year)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsPerMonth)
-                            </td>
-
-                            <td>
-                                <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
-                                <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
-                                <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
-                            </td>
+                        <tr class="alert alert-info">
+                            <td colspan="7" class="text-bold">   Year:  @year.Key  </td>
+                        </tr>
+                        foreach (var item in year)
+                        {
+                            <tr>
+                                <td> @Html.DisplayFor(modelItem => item.Year) </td>
+                                <td> @((Common.MonthsShortName)item.Month) </td>
+                                <td>  @Html.DisplayFor(modelItem => item.IncomeSource) </td>
+                                <td> @Html.DisplayFor(modelItem => item.IncomeDiscription) </td>
+                                <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)                                 </td>
+                                <td> @Html.DisplayFor(modelItem => item.IsPerMonth) </td>
+                                <td>
+                                    <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
+                                    <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
+                                    <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        <tr >
+                            <td colspan="3"></td>
+                            <td class="text-right">Total  : </td>
+                            <td style="text-decoration-color; border-color:red; border-block;"   class="text-bold">  @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", year.Sum(year => year.Amount))</td>
                         </tr>
                     }
                 </tbody>
-
-                <tfoot>
-
-                    <tr>
-                        <td colspan="6" class="text-bold  text-center ">  Total Amount : &#8377;@Model.Sum(r => r.Amount)</td>
-
-                    </tr>
-                </tfoot>
             </table>
 
         </div>
