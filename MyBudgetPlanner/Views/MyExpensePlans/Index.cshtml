@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-body">
             <p class="float-end"> <a asp-action="Create">Create New</a> </p>
-            <table class="table hover" id="tbl_Expence">
+            <table class="table hover" id="tbl_Expense">
                 <thead>
                     <tr class="text-center">
                         <th> @Html.DisplayNameFor(model => model.ExpenseName) </th>
@@ -61,7 +61,7 @@
     <script src="~/js/all.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tbl_Expence').DataTable({ pageLength: 50 });
+            $('#tbl_Expense').DataTable({ pageLength: 50 });
         });
     </script>
 }

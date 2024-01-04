@@ -8,7 +8,7 @@ namespace MyBudgetPlanner.Controllers
 
         public string GetLoggedInUserId()
         {
-            string? LoggedInUserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            string? LoggedInUserId = HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(LoggedInUserId))
                 return string.Empty;
             else return LoggedInUserId;

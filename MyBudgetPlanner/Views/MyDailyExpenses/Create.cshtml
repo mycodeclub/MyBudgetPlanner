@@ -1,4 +1,4 @@
-﻿@model MyBudgetPlanner.Models.MyDailyExpence
+﻿@model MyBudgetPlanner.Models.MyDailyExpense
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
@@ -10,7 +10,7 @@
 <div class="content">
     <div class="card">
         <div class="card-body">
-            <h4>MyDailyExpence</h4>
+            <h4>MyDailyExpense</h4>
             <hr />
 
             <form asp-action="Create">
@@ -22,14 +22,14 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label asp-for="ExpenseTagIds" class="control-label">Expense Area</label>
-                        <select asp-for="ExpenseTagIds" class="form-control selectpicker" multiple>
+                        <label asp-for="ExpenseUnderPlanId" class="control-label">Expense Area</label>
+                        <select asp-for="ExpenseUnderPlanId" class="form-control">
                             @foreach (var items in ViewBag.MyExpensePlans)
                             {
                                 <option value="@items.UniqueId">@items.ExpenseName - @items.Description</option>
                             }
                         </select>
-                        <span asp-validation-for="ExpenseTagCommaList" class="text-danger"></span>
+                        <span asp-validation-for="ExpenseUnderPlanId" class="text-danger"></span>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -48,9 +48,9 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label asp-for="ExpenceDate" class="control-label">Date</label>
+                            <label asp-for="ExpenseDate" class="control-label">Date</label>
                             <div class="input-group">
-                                <input type="date" asp-for="ExpenceDate" autocomplete="off" class="form-control" />
+                                <input type="date" asp-for="ExpenseDate" autocomplete="off" class="form-control" />
 
                             </div>
                         </div>

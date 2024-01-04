@@ -1,0 +1,79 @@
+﻿ @model IEnumerable<IGrouping<string, MyBudgetPlanner.Models.MyDailyExpense>>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    ViewBag.activeTabName = "DailyExpense";
+}
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+
+            <table class="table" id="tbl_DailyExpense">
+                <thead>
+                    <tr class="text-center">
+                        <th> Description  </th>
+                        <th> Amount </th>
+                        <th> IsMandatory </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var expencUnderPlan in Model)
+                    {
+
+                        <tr class="alert alert-info">
+                            <td colspan="4">  <lable class="text-bold"> Expenc Plan: </lable> @expencUnderPlan.Key  </td>
+                        </tr>
+                        @foreach (var exp in expencUnderPlan)
+                        {
+                            <tr>
+                                <td> &nbsp; &nbsp; - @Html.DisplayFor(modelItem => exp.Description) | @exp.ExpenseDay - @((Common.MonthsShortName)@exp.ExpenseMonth) </td>
+                                <td class="text-right"> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", exp.Amount) </td>
+                                <td class="text-center"> @Html.DisplayFor(modelItem => exp.IsMandatory) </td>
+                                <td>
+                                    <a asp-action="Create" asp-route-id="@exp.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
+                                    <a asp-action="Details" asp-route-id="@exp.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
+                                    <a asp-action="Delete" asp-route-id="@exp.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="text-right">Total  : </td>
+                            <td style="text-decoration-color; border-color:red; border-block;" class="text-bold text-right">  @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", expencUnderPlan.Sum(year => year.Amount))</td>
+                        </tr>
+                    }
+                </tbody>
+
+
+
+
+
+
+
+
+            </table>
+
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/js/all.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tbl_DailyExpense').DataTable({ pageLength: 50 });
+        });
+    </script>
+}
