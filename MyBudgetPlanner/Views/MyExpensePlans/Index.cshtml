@@ -16,18 +16,10 @@
             <table class="table hover" id="tbl_Expence">
                 <thead>
                     <tr class="text-center">
-                        <th>
-                            @Html.DisplayNameFor(model => model.ExpenseName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Description)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Amount)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsMandatory)
-                        </th>
+                        <th> @Html.DisplayNameFor(model => model.ExpenseName) </th>
+                        <th> @Html.DisplayNameFor(model => model.Description) </th>
+                        <th> @Html.DisplayNameFor(model => model.Amount) </th>
+                        <th> @Html.DisplayNameFor(model => model.IsMandatory) </th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,8 +29,8 @@
                         <tr>
                             <td> @Html.DisplayFor(modelItem => item.ExpenseName) </td>
                             <td> @Html.DisplayFor(modelItem => item.Description) </td>
-                            <td class="text-right"> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)                             </td>
-                            <td class="text-center"> @Html.DisplayFor(modelItem => item.IsMandatory)                             </td>
+                            <td class="text-right"> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount) </td>
+                            <td class="text-center"> @Html.DisplayFor(modelItem => item.IsMandatory) </td>
                             <td>
                                 <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary "></i></a> |
                                 <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
@@ -50,12 +42,15 @@
                 <tfoot>
 
                     <tr>
-                        <td colspan="6" class="text-bold  text-center ">  Total Amount : <span>&#8377;@Model.Sum(r => r.Amount)</span></td>
-
+                        <td></td>
+                        <td class="text-right text-bold">Total Amount :</td>
+                        <td class="text-right text-bold">   @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", @Model.Sum(r => r.Amount)) </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
-         
+
         </div>
     </div>
 </div>

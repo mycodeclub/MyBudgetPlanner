@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Host.Mef;
 using Microsoft.EntityFrameworkCore;
 using MyBudgetPlanner.DataBase;
 using MyBudgetPlanner.Models;
 
 namespace MyBudgetPlanner.Controllers
 {
-    public class MyIncomesController : Controller
+    public class MyIncomesController : BaseController
     {
         private readonly AppDbContext _context;
 
@@ -46,10 +43,23 @@ namespace MyBudgetPlanner.Controllers
         }
 
         // GET: MyIncomes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid id, int month = 0, int year = 0)
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            Income? income = null;
+            if (!id.Equals(Guid.Empty))
+                income = await _context.Incomes.FindAsync(id);
+            if (income == null)
+            {
+                if (month == 0) month = DateTime.Now.Month;
+                if (year == 0) year = DateTime.Now.Year;
+                income = new Income()
+                {
+                    Month = month,
+                    Year = year,
+                    IsPerMonth = true,
+                };
+            }
+            return View(income);
         }
 
         // POST: MyIncomes/Create
@@ -59,10 +69,20 @@ namespace MyBudgetPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Income income)
         {
-            if (income!=null)
+            if (income != null)
             {
-                income.UniqueId = Guid.NewGuid();
-                _context.Add(income);
+                if (income.UniqueId.Equals(Guid.Empty))
+                {
+                    income.UniqueId = Guid.NewGuid();
+                    income.CreatedDate = DateTime.UtcNow;
+                    income.UserId = GetLoggedInUserId();
+                    _context.Add(income);
+                }
+                else if (income.UserId.Equals(GetLoggedInUserId()))
+                {
+                    income.LastUpdatedDate = DateTime.UtcNow;
+                    _context.Update(income);
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -156,14 +176,14 @@ namespace MyBudgetPlanner.Controllers
             {
                 _context.Incomes.Remove(income);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool IncomeExists(Guid id)
         {
-          return (_context.Incomes?.Any(e => e.UniqueId == id)).GetValueOrDefault();
+            return (_context.Incomes?.Any(e => e.UniqueId == id)).GetValueOrDefault();
         }
     }
 }

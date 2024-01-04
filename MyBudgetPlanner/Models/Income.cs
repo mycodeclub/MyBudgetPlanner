@@ -14,7 +14,7 @@ namespace MyBudgetPlanner.Models
         [Display(Name = "Income Discription")]
         public string? IncomeDiscription { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
-        public string Month { get; set; } = string.Empty;
+        public int Month { get; set; } = 0;
         public int Year { get; set; } = 0;
         // is a recurring
 
@@ -25,6 +25,9 @@ namespace MyBudgetPlanner.Models
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser? User { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastUpdatedDate { get; set; }
 
     }
 }

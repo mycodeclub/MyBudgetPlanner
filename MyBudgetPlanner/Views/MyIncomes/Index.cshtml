@@ -20,68 +20,69 @@
 
 
 
-<p class="float-end">
-    <a asp-action="Create">Create New</a>
-</p>
+            <p class="float-end">
+                <a asp-action="Create">Create New</a>
+            </p>
             <table id="tbl_Income" class=" table hover">
-    <thead>
-             <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.IncomeSource)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IncomeDiscription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Month)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-              @Html.DisplayNameFor(model => model.IsPerMonth)
-            </th>
-            
-            <th>
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            @Html.DisplayNameFor(model => model.IncomeSource)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IncomeDiscription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Month)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Year)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsPerMonth)
+                        </th>
 
-              Action
+                        <th>
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="text-center ">
-            <td>
-                @Html.DisplayFor(modelItem => item.IncomeSource)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IncomeDiscription)
-            </td>
-            <td>
-           @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Month)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPerMonth)
-            </td>
-          
-            <td>
-                                <a asp-action="Edit" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
+                            Action
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center ">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IncomeSource)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IncomeDiscription)
+                            </td>
+                            <td>
+                                @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Month)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Year)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsPerMonth)
+                            </td>
+
+                            <td>
+                                <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
                                 <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
                                 <a asp-action="Delete" asp-route-id="@item.UniqueId"><i class="fa-solid fa-trash text-danger"></i></a>
-            </td>
-        </tr>
-}
-    </tbody>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
                 <tfoot>
 
@@ -90,8 +91,8 @@
 
                     </tr>
                 </tfoot>
-</table>
-           
+            </table>
+
         </div>
     </div>
 </div>
@@ -102,7 +103,7 @@
     <script src="~/js/all.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tbl_Income').DataTable({ pageLength: 50  });
+            $('#tbl_Income').DataTable({ pageLength: 50 });
         });
     </script>
 }
