@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\UiTemplate\NewFolder\**" />
-    <Content Remove="wwwroot\UiTemplate\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\UiTemplate\NewFolder\**" />
-    <None Remove="wwwroot\UiTemplate\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
