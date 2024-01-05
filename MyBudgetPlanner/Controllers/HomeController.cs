@@ -32,12 +32,8 @@ namespace MyBudgetPlanner.Controllers
 
             }
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            await AdminLogin();
-            return RedirectToAction("Dashboard", "Home");
-            // return RedirectToAction("Create", "MyDailyExpenses");
-
             return View();
         }
 

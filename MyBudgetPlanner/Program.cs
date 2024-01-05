@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-             options.UseSqlServer(builder.Configuration.GetConnectionString("MyBudgetPlannerConStr")));
+             options.UseSqlServer(builder.Configuration.GetConnectionString("MyBudgetPlannerLiveDb")));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
