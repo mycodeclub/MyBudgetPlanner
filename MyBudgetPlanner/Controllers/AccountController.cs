@@ -42,10 +42,8 @@ namespace MyBudgetPlanner.Controllers
                         await _context.SaveChangesAsync();
                         var result2 = await _userManager.AddToRoleAsync(appUser, "User");
                         await _signInManager.SignInAsync(appUser, isPersistent: false).ConfigureAwait(false);
-                        MasterData.Tags.ForEach(t =>
-                        {
-                            _context.MyExpensePlans.Add(new MyExpensePlan() { UserId = appUser.Id, ExpenseName = t.TagName, Description = t.Description, IsMandatory = true, CreatedDate = DateTime.UtcNow });
-                        });
+                      
+
                         await _context.SaveChangesAsync();
                         return RedirectToAction("Index", "Planner");
                     }

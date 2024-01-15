@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBudgetPlanner.DataBase;
 using MyBudgetPlanner.Models;
+using System.Collections.Immutable;
 
 namespace MyBudgetPlanner.Controllers
 {
@@ -10,17 +11,17 @@ namespace MyBudgetPlanner.Controllers
     public class MyDailyExpensesController : BaseController
     {
         private readonly AppDbContext _context;
-        // private readonly DailyExpensesBAL _dailyExpensesBAL;
         public MyDailyExpensesController(AppDbContext context)
         {
             _context = context;
-            //    _dailyExpensesBAL = new DailyExpensesBAL(context, GetLoggedInUserId());
         }
 
         // GET: MyDailyExpenses
         public async Task<IActionResult> Index()
         {
-            var myDailyExpenses = await _context.MyDailyExpenses.Include(e => e.ExpenseUnderPlan).Where(e => e.UserId == GetLoggedInUserId()).GroupBy(e => e.ExpenseUnderPlan.ExpenseName).ToListAsync();
+            var myDailyExpenses = await _context.MyDailyExpenses.Include(e => e.ExpenseUnderPlan).Where(e => e.UserId == GetLoggedInUserId()).ToListAsync();
+            var expensPlan = await _context.MyExpensePlans.Where(e => e.UserId == GetLoggedInUserId()).ToListAsync();
+            ViewBag.ExpensPlan = expensPlan;
             return View(myDailyExpenses);
         }
 

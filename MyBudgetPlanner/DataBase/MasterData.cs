@@ -14,14 +14,10 @@ namespace MyBudgetPlanner.DataBase
 
         public static List<ExpenseTagMaster> Tags = new List<ExpenseTagMaster>()
             {
-                new() { TagName = "House Rent", Description = "living in different city" },
-                new() { TagName = "Electricity Bill-SelfHome", Description = "Own Home" },
-                new() { TagName = "Grocery", Description = "Home Grocery" },
-                new() { TagName = "Transportation", Description = "Cab, Car / Bike Refueling" },
-                new() { TagName = "Childs Education", Description = "School, Tution Fee & Kids Pocket money" },
-                new() { TagName = "Savings", Description = "Savings" },
-                new() { TagName = "Entertainment", Description = "Movie, Weekend Party, Fun activity ETC" },
-        };
+                new() { TagName = "Survival", Description = "Basic survival costing" },
+                new() { TagName = "Entertainment", Description = "Movie, Weekend Party, Holiday" },
+                 new() { TagName = "Transportation", Description = "Cab, Car / Bike Refueling" },
+         };
         //        public static List<MyExpensePlan> Expenses = Tags.Select(t => new MyExpensePlan() { ExpenseTagCommaList = t.TagName, Discription = t.Description, IsMandatory = true }).ToList();
 
 
