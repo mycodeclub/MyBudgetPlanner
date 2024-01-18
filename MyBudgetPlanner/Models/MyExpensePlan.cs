@@ -14,6 +14,9 @@ namespace MyBudgetPlanner.Models
         public string ExpenseName { get; set; } = string.Empty;
         public string ?Description { get; set; } = string.Empty;
         public int Amount { get; set; } = 0;
+
+        public int Month { get; set; } = 0;
+        public int Year { get; set; } = 0;
         [Display(Name = "Is Mandatory")]
         public bool IsMandatory { get; set; } = false;
         public DateTime CreatedDate { get; internal set; }
