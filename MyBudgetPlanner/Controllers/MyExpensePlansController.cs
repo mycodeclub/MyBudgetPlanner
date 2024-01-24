@@ -26,8 +26,8 @@ namespace MyBudgetPlanner.Controllers
             string? LoggedInUserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(LoggedInUserId))
                 return NotFound();
-            var appDbContext = _context.MyExpensePlans.Where(p => p.UserId.Equals(LoggedInUserId));
-            return View(await appDbContext.ToListAsync());
+            var data = await _context.MyExpensePlans.Where(p => p.UserId.Equals(LoggedInUserId)).GroupBy(p => p.Year).ToListAsync(); 
+            return View(data);
         }
 
         // GET: MyExpensePlans/Details/5

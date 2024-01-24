@@ -1,8 +1,8 @@
-﻿@model IEnumerable<IGrouping<int, MyBudgetPlanner.Models.MyExpensePlan>>
+﻿@model IEnumerable<MyBudgetPlanner.Models.ExpensePlanMaster>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
-    ViewBag.activeTabName = "myexpenses";
+    ViewBag.activeTabName = "myexpensesMaster";
 }
 <link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
 
@@ -22,10 +22,9 @@
             </p>
             <table id="tbl_Income" class=" table hover">
                 <thead>
-                    <tr class="text-center">
-                        <th> Year </th>
-                        <th> Month </th>
-                        <th>  ExpenseName </th>
+                    <tr >
+
+                        <th> ExpenseName </th>
                         <th> Discription </th>
                         <th> Amount </th>
                         <th> IsMandatory </th>
@@ -33,20 +32,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var year in Model.OrderByDescending(y => y.Key))
-                    {
-                        <tr class="alert alert-info">
-                            <td colspan="7" class="text-bold">   Year:  @year.Key </td>
-                        </tr>
-                        foreach (var item in year)
+                  
+                   
+                        @foreach (var item in Model)
                         {
                             <tr>
-                                <td> @Html.DisplayFor(modelItem => item.Year) </td>
-                                <td> @((Common.MonthsShortName)item.Month) </td>
-                                <td>  @Html.DisplayFor(modelItem => item.ExpenseName) </td>
-                                <td> @Html.DisplayFor(modelItem => item.Description) </td>
-                                <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", item.Amount)                                 </td>
-                                <td> @Html.DisplayFor(modelItem => item.IsMandatory) </td>
+
+                                <td>@item.ExpenseName </td>
+                                <td>@item.Description</td>
+                                <td> @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}",@item.Amount)            </td>
+                                <td>@item.IsMandatory</td>
                                 <td>
                                     <a asp-action="Create" asp-route-id="@item.UniqueId"><i class="fa-solid fa-pen-to-square text-secondary"></i></a> |
                                     <a asp-action="Details" asp-route-id="@item.UniqueId"><i class="fa-solid fa-circle-info text-success"></i></a> |
@@ -54,12 +49,13 @@
                                 </td>
                             </tr>
                         }
-                        <tr>
-                            <td colspan="3"></td>
-                            <td class="text-right">Total  : </td>
-                            <td style="text-decoration-color; border-color:red; border-block;" class="text-bold">  @string.Format(new System.Globalization.CultureInfo("hi-IN"), "{0:C}", year.Sum(year => year.Amount))</td>
-                        </tr>
-                    }
+                    
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-right">Total : </td>
+                        <td style="text-decoration-color;border-color:red; border-block"; class="text-bold"> </td>
+                    </tr>
+                    
                 </tbody>
             </table>
 

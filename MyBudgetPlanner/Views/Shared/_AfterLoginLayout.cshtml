@@ -82,11 +82,18 @@
                     @if (activeTabName.Equals("Dashboard")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/Home/Dashboard"> <i class="icon-ru "></i><span> Dashboard</span> </a></li>
 
-                    @if (activeTabName.Equals("myicome")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    @if (activeTabName.Equals("myicon")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/MyIncomes/Index"> <i class="icon-ru "></i><span>Income Sources</span> </a></li>
 
+                    @if (activeTabName.Equals("myicome")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/IncomeMaster/Index"> <i class="icon-ru "></i><span>IncomeSourceMaster</span> </a></li>
+
+                    @if (activeTabName.Equals("myexpensesMaster")) { activeTab = "active"; } else { activeTab = string.Empty; }
+                    <li class="@activeTab"><a href="/ExpenseMaster/Index"> <i class="icon-ru "></i><span>ExpensesPlanMaster</span> </a></li>
+
+
                     @if (activeTabName.Equals("myexpenses")) { activeTab = "active"; } else { activeTab = string.Empty; }
-                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span>Expenses Plan</span> </a></li>
+                    <li class="@activeTab"><a href="/MyExpensePlans/Index"> <i class="icon-ru "></i><span> My Expenses Plan</span> </a></li>
 
                     @if (activeTabName.Equals("DailyExpense")) { activeTab = "active"; } else { activeTab = string.Empty; }
                     <li class="@activeTab"><a href="/MyDailyExpenses/Index">Daily Expenses</a></li>

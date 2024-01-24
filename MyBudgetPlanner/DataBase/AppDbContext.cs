@@ -29,5 +29,7 @@ namespace MyBudgetPlanner.DataBase
         public DbSet<ExpenseTagMaster> ExpenseTagMaster { get; set; }
         public DbSet<MyExpensePlan> MyExpensePlans { get; set; }
         public DbSet<MyDailyExpense> MyDailyExpenses { get; set; }
+        public DbSet<IncomeSourceMaster> IncomeMaster{ get; set; }
+        public DbSet<ExpensePlanMaster> ExpenseMaster { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace MyBudgetPlanner.Controllers
     {
         private readonly AppDbContext _context;
 
-        public MyIncomesController(AppDbContext context)
+        public MyIncomesController (AppDbContext context)
         {
             _context = context;
         }

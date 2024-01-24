@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
-    ViewBag.activeTabName = "myicome";
+    ViewBag.activeTabName = "myicon";
 }
 
 
@@ -38,10 +38,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var year in Model.OrderByDescending(y=>y.Key))
+                    @foreach (var year in Model.OrderByDescending(y => y.Key))
                     {
                         <tr class="alert alert-info">
-                            <td colspan="7" class="text-bold">   Year:  @year.Key  </td>
+                            <td colspan="7" class="text-bold">   Year:  @year.Key </td>
                         </tr>
                         foreach (var item in year)
                         {

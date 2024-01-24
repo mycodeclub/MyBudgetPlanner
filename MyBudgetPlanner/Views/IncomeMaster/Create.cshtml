@@ -1,0 +1,63 @@
+﻿@model  MyBudgetPlanner.Models.IncomeSourceMaster
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
+    ViewBag.activeTabName = "myicome";
+}
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+
+
+            <h5>IncomeMaster</h5>
+            <hr />
+
+            <form asp-action="Create">
+                <div class="creat float-end" asp-action="Create"></div>
+                <input type="hidden" asp-for="UniqueId" />
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="CreatedDate" />
+                <input type="hidden" asp-for="LastUpdatedDate" />
+
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="IncomeSource" class="control-label"></label>
+                        <input asp-for="IncomeSource" autocomplete="off" class="form-control" />
+                        <span asp-validation-for="IncomeSource" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="IncomeDiscription" class="control-label"></label>
+                        <input asp-for="IncomeDiscription" autocomplete="off" class="form-control" />
+                        <span asp-validation-for="IncomeDiscription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Amount" class="control-label"></label>
+                        <input asp-for="Amount" autocomplete="off" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-check col-md-4 mt-5 month ">
+                        <label class="form-check-label">
+                            <input class="form-check-input " asp-for="IsPerMonth" /> Is PerMonth
+                        </label>
+                    </div>
+                </div>
+                     <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+
+
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
