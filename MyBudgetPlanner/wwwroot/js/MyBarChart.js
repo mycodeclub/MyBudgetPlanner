@@ -1,7 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
    // var UserId = "6a60e1ff-44bc-434b-97e4-29909c05dc83";
 
-    fetch('/Home/GetChartData')
+    fetch('/Home/ChartData')
         .then(response => response.json())
         .then(data => {
             new Chart(document.getElementById("MyBarChartCanvas"), {
@@ -48,3 +48,14 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error fetching data:', error));
 });
 
+document.getElementById("Manual").onclick = function () {
+    window.location.href = "/MyExpensePlans/Create";
+    alert("You clicked Yes");
+};
+
+document.getElementById("MasterPlan").onclick = function () {
+    alert("You clicked No");
+};
+document.getElementById("PreviousMonth").onclick = function () {
+    alert("You clicked No");
+};

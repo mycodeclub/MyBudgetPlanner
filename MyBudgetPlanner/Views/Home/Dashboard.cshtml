@@ -1,12 +1,14 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AfterLoginLayout.cshtml";
     List<MyExpensePlan> expenses = ViewBag.ExpensePlan;
     List<Income> incomes = ViewBag.Income;
+    List<Income> monthlyIncome = ViewBag.Income;
     ViewBag.activeTabName = "Dashboard";
     string text = string.Format(new CultureInfo("hi-IN"), "{0:c}", decimal.Parse(23345.ToString(), CultureInfo.InvariantCulture));
     string[] colors = new[] { "tile-red", "tile-pink", "tile-cyan", "badge bg-danger", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua", "tile-red", "tile-pink", "tile-cyan", "tile-aqua" };
-
+   
 }
 
     <!DOCTYPE html>
@@ -46,28 +48,91 @@
 <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .labels {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the start (left) */
+        }
+        .chart-container {
+            flex: 2;
+            padding: 20px;
+        }
+
+    </style>
 </head>
 <body class="skin-blue sidebar-mini">
     <div class="content">
-        <div class="row">
-            <div class="col-lg-12 col-xs-6 m-b-3">
-                <div class="card">
-                    
+        @if (monthlyIncome == null || !monthlyIncome.Any())
+        {
+            <div class="row">
+                <div class="col-lg-12 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div role="alert" class="alert alert-success">
+                                <strong>
+                                    Add your Monthly Income......
+                                </strong>
+                                <br />
+                                <button id="IncomeManual" class="btn btn-secondery">Manual Enter</button>
+                                <button id="IncomeMasterPlan" class="btn btn-danger">Copy From MasterPlan</button>
+                                <button id="IncomePreviousMonth" class="btn btn-primary">Copy From Previous Month</button>
+                                <br />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
+           
+        }
+        @if (!expenses.Any() && monthlyIncome.Any())
+        {
+            <div class="row">
+                <div class="col-lg-12 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div role="alert" class="alert alert-success">
+                                <strong>
+                                    Add your Expense Plans For this Month
+                                </strong>
+                                <br />
+                                <button id="Manual" class="btn btn-secondery">Manual Enter</button>
+                                <button id="MasterPlan" class="btn btn-danger">Copy From MasterPlan</button>
+                                <button id="PreviousMonth" class="btn btn-primary">Copy From Previous Month</button>
+                                <br />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
         <div class="row">
             <div class="col-lg-6 col-xs-6 m-b-3">
                 <div class="card">
                     <div class="card-body">
-                        <canvas id="MyBarChartCanvas" width="400" height="200">Bar chart </canvas>
+                        <canvas id="MyBarChartCanvas">Bar chart </canvas>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-xs-6 m-b-3">
                 <div class="card">
                     <div class="card-body">
-                        <canvas id="MyPieChartCanvas" width="400" height="200">Bar chart </canvas>
+                        <div class="container">
+                            <div class="labels">
+                                <!-- Label data will be displayed here -->
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="MyPieChartCanvas">Pie chart</canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,11 +145,10 @@
                 <div class="small-box bg-orange">
                     <div class="inner">
                         <div class="text-left">
-                            <h2>Total Sales</h2>
-                            <h6>Todays Income</h6>
+                            <h2>Total Income</h2>
                         </div>
                         <div class="text-right m-t-2">
-                            <h1><sup><i class="ti-arrow-up"></i></sup> $500</h1>
+                            <h1><sup><i class="ti-arrow-up"></i></sup> ₹ </h1>
                         </div>
                         <div class="m-b-2">
                             <span class="text-white">35%</span>
@@ -134,9 +198,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
-
-        <div class="row">
+        <!--<div class="row">
             <div class="col-lg-4 m-b-3">
                 <div>
                     <div class="soci-wid-box bg-twitter m-b-3">
@@ -206,78 +268,13 @@
                         <div class="pull-right"> <a href="#">Invoice Summary <i class="fa fa-long-arrow-right"></i></a> </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table class="table no-margin">
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Item</th>
-                                        <th>Status</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="#">OR9842</a></td>
-                                        <td>Call of Duty IV</td>
-                                        <td><span class="label label-success">Shipped</span></td>
-                                        <td> $ 1200.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR1848</a></td>
-                                        <td>Samsung Smart TV</td>
-                                        <td><span class="label label-warning">Pending</span></td>
-                                        <td> $ 5300.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR7429</a></td>
-                                        <td>iPhone 6 Plus</td>
-                                        <td><span class="label label-danger">Delivered</span></td>
-                                        <td> $ 1500.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR7429</a></td>
-                                        <td>Samsung Smart TV</td>
-                                        <td><span class="label label-info">Processing</span></td>
-                                        <td> $ 2000.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR1848</a></td>
-                                        <td>Samsung Smart TV</td>
-                                        <td><span class="label label-warning">Pending</span></td>
-                                        <td> $ 2500.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR7429</a></td>
-                                        <td>iPhone 6 Plus</td>
-                                        <td><span class="label label-danger">Delivered</span></td>
-                                        <td> $ 3000.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR9842</a></td>
-                                        <td>Call of Duty IV</td>
-                                        <td><span class="label label-success">Shipped</span></td>
-                                        <td> $ 1000.00 </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">OR9842</a></td>
-                                        <td>Call of Duty IV</td>
-                                        <td><span class="label label-success">Shipped</span></td>
-                                        <td> $ 1000.00 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.table-responsive -->
-                    </div>
+                    
                     <!-- /.box-body -->
                     <div class="box-footer clearfix"> <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a> <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a> </div>
                     <!-- /.box-footer -->
                 </div>
             </div>
         </div>
-        <!-- /.row -->
         <!-- /.row -->
     </div>
     <script src="~/js/mybarchart.js"></script>
