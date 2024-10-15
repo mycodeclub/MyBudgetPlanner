@@ -23,11 +23,11 @@ namespace MyBudgetPlanner.Controllers
             _context = context;
         }
 
-        private async Task AdminLogin()
+        private async Task UserLogin()
         {
             try
             {
-                var result = await _signInManager.PasswordSignInAsync("ankit@bpst.com", "ankit@bpst.com", true, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync("mr.ankitsahai@gmail.com", "mr.ankitsahai@gmail.com", true, lockoutOnFailure: false);
             }
             catch (Exception ex)
             {
@@ -35,8 +35,10 @@ namespace MyBudgetPlanner.Controllers
 
             }
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await UserLogin();
+            return RedirectToAction(  "Index", "MyDailyExpenses");
             return View();
         }
 
